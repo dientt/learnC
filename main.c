@@ -28,60 +28,69 @@ int *nhap_mang(){
 // xuat mang
 void xuat_mang(int *a){
     int n = count_array(a);
-    printf("Mang da nhap la: \n");
-    for (int i=0; i<n; i++) {
+    for (int i = 0; i < n; i++) {
         printf("%d\t",a[i]);
     }
     printf("\n");
 }
 
-/*void dem_phan_am( int a[], int n){
-    int dem=0;
-    for (int i=0; i<n; i++) {
-        if(a[i]<0)
-            dem++;
+// dem phan am
+void dem_phan_am(int *a){
+    int count = 0;
+    int n = count_array(a);
+    for (int i = 0; i<n; i++){
+        if(a[i] < 0) count++;
     }
-    if(dem>0)
-        printf("\nMang co %d so am.\n ",dem);
+    if(count > 0)
+        printf("Mang co %d so am\n ",count);
     else
-        printf("\nMang ko co so am\n");
+        printf("Mang ko co so am\n");
 }
-void max( int a[], int n){
-    int max =a[0];
-    for (int i= 0; i<n; i++) {
-        if(max<a[i] )
-            max= a[i];
+
+// tim gia tri lon nhat
+void max(int *a){
+    int n = count_array(a);
+    int max = a[0];
+    for (int i=0; i<n; i++) {
+        if(max < a[i]) max = a[i];
     }
-    printf("Gia tri lon nhat la:%d\n", max);
+    printf("Gia tri lon nhat la: %d\n", max);
 }
-void min( int a[], int n){
+
+// tim gia tri nho nhat
+void min(int *a){
+    int n = count_array(a);
     int min =a[0];
     for (int i= 0; i<n; i++) {
-        if(min>a[i] )
-            min = a[i];
+        if(min > a[i]) min = a[i];
     }
-    printf("Gia tri be nhat la:%d\n", min);
+    printf("Gia tri be nhat la: %d\n", min);
 }
- void hoan_vi( int *a, int *b){
- int temp = *a;
- *a=*b;
- *b= temp;
+
+// hoan vi
+void hoan_vi(int *a, int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
  }
-void sap_xep_giam_dan( int a[], int n){
-    for (int i=0; i<n-1; i++) {
-        for (int j=i+1;j<n;j++) {
+
+// sap xep giam dan
+void sap_xep_giam_dan(int *a){
+    int n = count_array(a);
+    for (int i = 0; i < n-1; i++) {
+        for (int j = i+1; j < n; j++) {
             if( a[i]< a[j]){
-                int temp= a[i];
-                a[i]=a[j];
-                a[j]=temp;
+                hoan_vi(&a[i], &a[j]);
             }
         }
     }
     printf("Mang da sap xep giam dan la:");
-    xuat_mang(a, n);
+    xuat_mang(a);
 }
 
-void sap_xep_noi_bot( int a[],int n){
+// sap xep noi bot
+void sap_xep_noi_bot(int *a){
+    int n = count_array(a);
     for (int i = 0; i < n-1; i++) {
         for(int j=n-1;j>i;j--){
             if( a[i] > a[j]){
@@ -89,102 +98,126 @@ void sap_xep_noi_bot( int a[],int n){
             }
         }
     }
-    printf("\nMang sau khi sap xep la:");
-    xuat_mang(a,n);
+    printf("Mang da sap xep tang dan la:");
+    xuat_mang(a);
 }
-void so_chinh_phuong( int a[], int n){
-    printf("\nCac so chinh phuong ");
-    for (int i =0; i<n; i++) {
+
+// so chinh phuong
+void so_chinh_phuong(int *a){
+    int n = count_array(a);
+    printf("Cac so chinh phuong la: ");
+    for (int i = 0; i < n; i++) {
         if(sqrt(a[i]) * sqrt(a[i]) == a[i])
             printf("%d\t", a[i]);
     }
+    printf("\n");
 }
-void so_nguyen_to( int a[], int n){
-    printf("\nCac so nguyen to la: ");
-    for (int i =0; i< n; i++) {
-        if(a[i]%2== 1)
+
+// so nguyen to
+void so_nguyen_to(int *a){
+    int n = count_array(a);
+    printf("Cac so nguyen to la: ");
+    for (int i = 0; i<n; i++) {
+        if(a[i]%2 == 1)
             printf("%d\t",a[i]);
     }
+    printf("\n");
 }
 
-
-void tach_mang( int a[], int n, int temp[], int *ntemp){
-    *ntemp = 0;
-    for (int i= 0; i<n; i++) {
-        if( a[i]<0){
-            temp[*ntemp] = a[i];
-            (*ntemp)++;
+// tach mang
+int *tach_mang(int *a){
+    int *result = NULL;
+    int n = count_array(a);
+    int count = 0;
+    //count so cac so am
+    for (int i = 0; i < n; i++) {
+        if (a[i]<0) {
+            count++;
         }
     }
-    if(*ntemp>0){
-    printf("\nMang so am la: ");
-        xuat_mang(temp,*ntemp);
-       // max(temp, ntemp);
-   }
-    else{
-        printf("\nMang ko co so am: ");
+
+    if (count == 0) {
+        printf("Mang ko co so am: \n");
+        return result;
     }
- }
 
-void gop_mang( int a[], int n, int temp[], int ntemp){
-
-    a[] = {1, 2, 3 ,4, 5} --> n = 5
-    temp[] = {6, 7, 8} --> ntemp = 3
-
-
-    n+= ntemp;
-    // n == 8;
-    // n-ntemp == 5;
-    int x[n];
-    for (int i = 0; i < n-ntemp; i++) {
-        x[i] = a[i];
+    result = (int*)malloc(count*sizeof(int));
+    n = count;
+    count = 0;
+    for (int i = 0; i < n; i++) {
+        if( a[i]<0){
+            result[count] = a[i];
+            count++;
+        }
     }
-    for (int i=n-ntemp; i<n; i++) {
-        x[i]=temp[i-(n-ntemp)];
-        // x[5] = temp[0] -->x[5] == 6;
-    }
-    printf("\nGop mang: ");
-    xuat_mang(x, n);
+
+    printf("Mang cac so am la: ");
+    xuat_mang(result);
+    return result;
 }
 
-void sap_xep_nhanh( int a[], int left, int right){
-    int i =left;
-    int j=right;
-    int chot =a[(right + left)/2];
-    while (a[i]< chot)  {
-        i++;
+// gop mang
+int *gop_mang(int *a, int *b){
+    int n = count_array(a);
+    int m = count_array(b);
+    int *result = (int*)malloc((m+n)*sizeof(int));
+    for (int i = 0; i < n; i++) {
+        result[i] = a[i];
     }
-    while (a[j]>chot) j++;
-    if (i<j) {
-
-            int temp = a[i];
-            a[i]=a[j];
-            a[j]= temp;
-
-        i++;
-        j++;
+    for (int i = 0; i < m; i++) {
+        result[i+n-1] = b[i];
     }
-    if (left<j) {
+    printf("Gop mang: ");
+    xuat_mang(result);
+    return result;
+}
+
+// sap xep nhanh
+void sap_xep_nhanh(int *a, int left, int right){
+    int i = left;
+    int j = right;
+    int pivot = a[(left + right)/2];
+    while (i <= j) {
+      while (a[i] < pivot) {
+        i++;
+      }
+
+      while (a[j] > pivot) {
+        j--;
+      }
+
+      if (i <= j) {
+        hoan_vi(&a[i],&a[j]);
+        i++;
+        j--;
+      }
+    }
+    if (left < j) {
         sap_xep_nhanh(a, left, j);
     }
-    if(i<right ){
-        sap_xep_nhanh(a, i, right);}
+    if (i < right ){
+        sap_xep_nhanh(a, i, right);
+    }
 }
- */
 
 int main(){
     int *a = nhap_mang();
+    printf("Mang da nhap la: \n");
     xuat_mang(a);
-   /*dem_phan_am(a, n);
-    max(a, n);
-    min(a, n);
-    sap_xep_giam_dan(a,n);
-    sap_xep_noi_bot(a, n);
-    so_chinh_phuong(a, n);
-    so_nguyen_to(a, n);*/
-    // tach_mang(a, n, temp, &ntemp);
-//    sap_xep_nhanh(a,0,n);
-    // gop_mang(a, n, temp, ntemp);
+    dem_phan_am(a);
+    max(a);
+    min(a);
+    sap_xep_giam_dan(a);
+    sap_xep_noi_bot(a);
+    so_chinh_phuong(a);
+    so_nguyen_to(a);
+    int *b = tach_mang(a);
+    sap_xep_nhanh(a, 0, count_array(a)-1);
+    printf("Mang da sap xep tang dan la:\n");
+    xuat_mang(a);
+    int *c = gop_mang(a,b);
     free(a);
+    free(b);
+    free(c);
     return 0;
 }
